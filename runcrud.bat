@@ -27,6 +27,7 @@ goto end
 :fail
 echo.
 echo There were errors
+exit 1
 
 :end
 echo.
