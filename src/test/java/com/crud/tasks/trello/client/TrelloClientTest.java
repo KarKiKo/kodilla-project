@@ -83,6 +83,6 @@ public class TrelloClientTest {
             when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(null);
             //When
             //Then
-            assertEquals(new TrelloBoardDto[0], trelloClient.getTrelloBoards());
+            assertEquals(new ArrayList<>(), trelloClient.getTrelloBoards());
         }
 }
