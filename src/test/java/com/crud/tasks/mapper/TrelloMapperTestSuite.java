@@ -2,35 +2,44 @@ package com.crud.tasks.mapper;
 
 import com.crud.tasks.domain.*;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class TrelloMapperTestSuite {
 
-    public TrelloMapper trelloMapper = new TrelloMapper();
+    private TrelloMapper trelloMapper = new TrelloMapper();
+    private List<TrelloBoardDto> trelloBoardDtos = new ArrayList<>();
+    private List<TrelloListDto> board1lists = new ArrayList<>();
+    private List<TrelloListDto> board2lists = new ArrayList<>();
+    private TrelloCardDto trelloCardDto1;
+    private TrelloCardDto trelloCardDto2;
+    private TrelloCardDto trelloCardDto3;
+    private TrelloCardDto trelloCardDto4;
 
+
+    @Before
+    public void createTestStructure() {
+        Random random = new Random();
+        trelloCardDto1 = new TrelloCardDto("Card1", "tested card", "pos1", "1");
+        trelloCardDto2 = new TrelloCardDto("Card2", "tested card", "pos2", "1");
+        trelloCardDto3 = new TrelloCardDto("Card3", "tested card", "pos3", "2");
+        trelloCardDto4 = new TrelloCardDto("Card1", "tested card", "pos1", "3");
+        for(int i = 1; i <= 3; i++ ) {
+            TrelloListDto list = new TrelloListDto("" + i + "", "List" + i, random.nextBoolean());
+            if (i == 1 || i==2) {board1lists.add(list);} else {board2lists.add(list);}
+        }
+        TrelloBoardDto trelloBoardDto1 = new TrelloBoardDto("Board1", "1", board1lists);
+        TrelloBoardDto trelloBoardDto2 = new TrelloBoardDto("Board2", "2", board2lists);
+        trelloBoardDtos.add(trelloBoardDto1);
+        trelloBoardDtos.add(trelloBoardDto2);
+    }
     @Test
     public void testBoardMapping() {
         //Given
-        TrelloCardDto trelloCardDto1 = new TrelloCardDto("Card1", "tested card", "pos1", "1");
-        TrelloCardDto trelloCardDto2 = new TrelloCardDto("Card2", "tested card", "pos2", "1");
-        TrelloCardDto trelloCardDto3 = new TrelloCardDto("Card3", "tested card", "pos3", "2");
-        TrelloCardDto trelloCardDto4 = new TrelloCardDto("Card1", "tested card", "pos1", "3");
-        TrelloListDto trelloListDto1 = new TrelloListDto("1", "List1", false);
-        TrelloListDto trelloListDto2 = new TrelloListDto("2", "List2", true);
-        TrelloListDto trelloListDto3 = new TrelloListDto("3", "List3", false);
-        List<TrelloListDto> board1lists = new ArrayList<>();
-        List<TrelloListDto> board2lists = new ArrayList<>();
-        TrelloBoardDto trelloBoardDto1 = new TrelloBoardDto("Board1", "1", board1lists);
-        TrelloBoardDto trelloBoardDto2 = new TrelloBoardDto("Board2", "2", board2lists);
-        board1lists.add(trelloListDto1);
-        board1lists.add(trelloListDto2);
-        board2lists.add(trelloListDto3);
-        List<TrelloBoardDto> trelloBoardDtos = new ArrayList<>();
-        trelloBoardDtos.add(trelloBoardDto1);
-        trelloBoardDtos.add(trelloBoardDto2);
         //When
         List<TrelloBoardDto> trelloBoardDtos2 = trelloMapper.mapToBoardsDto(trelloMapper.mapToBoards(trelloBoardDtos));
         //Then
@@ -40,23 +49,6 @@ public class TrelloMapperTestSuite {
     @Test
     public void testListMapping(){
         //Given
-        TrelloCardDto trelloCardDto1 = new TrelloCardDto("Card1", "tested card", "pos1", "1");
-        TrelloCardDto trelloCardDto2 = new TrelloCardDto("Card2", "tested card", "pos2", "1");
-        TrelloCardDto trelloCardDto3 = new TrelloCardDto("Card3", "tested card", "pos3", "2");
-        TrelloCardDto trelloCardDto4 = new TrelloCardDto("Card1", "tested card", "pos1", "3");
-        TrelloListDto trelloListDto1 = new TrelloListDto("1", "List1", false);
-        TrelloListDto trelloListDto2 = new TrelloListDto("2", "List2", true);
-        TrelloListDto trelloListDto3 = new TrelloListDto("3", "List3", false);
-        List<TrelloListDto> board1lists = new ArrayList<>();
-        List<TrelloListDto> board2lists = new ArrayList<>();
-        TrelloBoardDto trelloBoardDto1 = new TrelloBoardDto("Board1", "1", board1lists);
-        TrelloBoardDto trelloBoardDto2 = new TrelloBoardDto("Board2","2", board2lists);
-        board1lists.add(trelloListDto1);
-        board1lists.add(trelloListDto2);
-        board2lists.add(trelloListDto3);
-        List<TrelloBoardDto> trelloBoardDtos = new ArrayList<>();
-        trelloBoardDtos.add(trelloBoardDto1);
-        trelloBoardDtos.add(trelloBoardDto2);
         //When
         List<TrelloListDto> board1listsTested = trelloMapper.mapToListDto(trelloMapper.mapToList(board1lists));
         //Then
@@ -66,23 +58,6 @@ public class TrelloMapperTestSuite {
     @Test
     public void testCardMapping(){
         //Given
-        TrelloCardDto trelloCardDto1 = new TrelloCardDto("Card1", "tested card", "pos1", "1");
-        TrelloCardDto trelloCardDto2 = new TrelloCardDto("Card2", "tested card", "pos2", "1");
-        TrelloCardDto trelloCardDto3 = new TrelloCardDto("Card3", "tested card", "pos3", "2");
-        TrelloCardDto trelloCardDto4 = new TrelloCardDto("Card1", "tested card", "pos1", "3");
-        TrelloListDto trelloListDto1 = new TrelloListDto("1", "List1", false);
-        TrelloListDto trelloListDto2 = new TrelloListDto("2", "List2", true);
-        TrelloListDto trelloListDto3 = new TrelloListDto("3", "List3", false);
-        List<TrelloListDto> board1lists = new ArrayList<>();
-        List<TrelloListDto> board2lists = new ArrayList<>();
-        TrelloBoardDto trelloBoardDto1 = new TrelloBoardDto("Board1", "1", board1lists);
-        TrelloBoardDto trelloBoardDto2 = new TrelloBoardDto("Board2","2", board2lists);
-        board1lists.add(trelloListDto1);
-        board1lists.add(trelloListDto2);
-        board2lists.add(trelloListDto3);
-        List<TrelloBoardDto> trelloBoardDtos = new ArrayList<>();
-        trelloBoardDtos.add(trelloBoardDto1);
-        trelloBoardDtos.add(trelloBoardDto2);
         //When
         TrelloCardDto trelloCardDtoTested = trelloMapper.mapToCardDto(trelloMapper.mapToCard(trelloCardDto1));
         //Then
