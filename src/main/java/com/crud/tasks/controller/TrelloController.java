@@ -12,26 +12,26 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/v1/trello")
+@RequestMapping("/v1/trello/")
 public class TrelloController {
 
     @Autowired
     private TrelloFacade trelloFacade;
 
-    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
+    @RequestMapping(method = RequestMethod.GET, value = "boards")
     public List<TrelloBoardDto> getTrelloBoards() {
         return trelloFacade.fetchTrelloBoards();
     }
-        /*trelloBoards.stream()
-                .filter(t -> t.getId()!= null & t.getName()!= null)
-                .filter(t -> t.getName().contains("Kodilla"))
-                .forEach(trelloBoardDto -> {
-                        System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName());
-                        System.out.println("\nThis board contains lists: ");
-                        trelloBoardDto.getLists().forEach(trelloList ->
-                        System.out.println(trelloList.getName() + " - " + trelloList.getId() + " - " + trelloList.isClosed()));
-                });*/
-    @RequestMapping(method = RequestMethod.POST, value = "createTrelloCard")
+    /*trelloBoards.stream()
+            .filter(t -> t.getId()!= null & t.getName()!= null)
+            .filter(t -> t.getName().contains("Kodilla"))
+            .forEach(trelloBoardDto -> {
+                    System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName());
+                    System.out.println("\nThis board contains lists: ");
+                    trelloBoardDto.getLists().forEach(trelloList ->
+                    System.out.println(trelloList.getName() + " - " + trelloList.getId() + " - " + trelloList.isClosed()));
+            });*/
+    @RequestMapping(method = RequestMethod.POST, value = "cards")
     public CreatedTrelloCardDto createdTrelloCard(@RequestBody TrelloCardDto trelloCardDto){
         return trelloFacade.createCard(trelloCardDto);
     }
